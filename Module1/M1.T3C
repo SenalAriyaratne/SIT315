@@ -1,0 +1,43 @@
+// C++ code
+//
+
+const uint8_t  led_red = 12;
+const uint8_t led_green = 13;
+const uint8_t led_state = LOW;
+
+const uint8_t pirA = 3;
+const uint8_t pirB = 2;
+void setup()
+{
+  pinMode(led_red, OUTPUT);
+  pinMode(led_green, OUTPUT);
+  
+  pinMode(pirA, INPUT);
+  pinMode(pirB, INPUT);
+  
+  digitalWrite(led_red, led_state);
+  digitalWrite(led_green, led_state);
+  
+  Serial.begin(9600);
+  
+  attachInterrupt(digitalPinToInterrupt(pirA),ISR_A, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(pirB), ISR_B, CHANGE);
+}
+
+void loop()
+{
+  
+}
+
+void ISR_A()
+{
+  digitalWrite(led_red, digitalRead(pirA));
+  Serial.println("Motion detected, LED Red On");
+}
+
+void ISR_B()
+{
+  digitalWrite(led_green, digitalRead(pirB));
+  Serial.println("Motion detected, LED Green On");
+}
+  
