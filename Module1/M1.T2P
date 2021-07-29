@@ -1,0 +1,25 @@
+const uint8_t  led_pin = 12;
+const uint8_t led_state = LOW;
+
+const uint8_t pir_pin = 3;
+void setup()
+{
+  pinMode(led_pin, OUTPUT);
+  pinMode(pir_pin, INPUT);
+  
+  digitalWrite(led_pin, led_state);
+  Serial.begin(9600);
+  attachInterrupt(digitalPinToInterrupt(pir_pin), pin_ISR, HIGH);
+}
+
+void loop()
+{
+  
+}
+
+void pin_ISR()
+{
+  digitalWrite(led_pin, digitalRead(pir_pin));
+  Serial.println("Motion detected, LED ON");
+}
+  
